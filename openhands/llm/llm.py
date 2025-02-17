@@ -156,6 +156,7 @@ class LLM(RetryMixin, DebugMixin):
                 'temperature'
             )  # temperature is not supported for reasoning models
 
+        os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'key.json'
         self._completion = partial(
             litellm_completion,
             model=self.config.model,
@@ -169,6 +170,8 @@ class LLM(RetryMixin, DebugMixin):
             timeout=self.config.timeout,
             top_p=self.config.top_p,
             drop_params=self.config.drop_params,
+            vertex_ai_project='japan-ai-platform-staging',
+            vertex_ai_location='us-east5',
             **kwargs,
         )
 
